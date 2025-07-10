@@ -10,7 +10,6 @@ fun Application.configureRouting() {
     routing {
 
         get("/ping") {
-            println("🚀 ping recebido")
             call.respondText("pong")
         }
 
@@ -21,7 +20,7 @@ fun Application.configureRouting() {
         authenticate("auth-jwt") {
             get("/secured") {
                 val principal = call.principal<JWTPrincipal>()
-                val username = principal?.payload?.getClaim("username")?.asString() ?: "desconhecido"
+                val username = principal?.payload?.getClaim("given_name")?.asString() ?: "desconhecido"
                 call.respondText("Área protegida. Bem-vindo, $username!")
             }
         }
